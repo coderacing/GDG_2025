@@ -7,7 +7,7 @@ import 'package:medimate/src/appdart.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 Future<UserCredential> signInWithGoogle() async {
