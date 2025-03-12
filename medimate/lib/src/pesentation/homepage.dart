@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Welcome to Medimate!'),
+            const Text("Hello guyz!"),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
