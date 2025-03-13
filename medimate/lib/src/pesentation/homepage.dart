@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 
+import 'package:medimate/src/widgets/app_drawer.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: AppDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
