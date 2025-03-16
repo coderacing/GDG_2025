@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class BkgImgWidget extends StatelessWidget {
   Widget? childWidget;
 
-  BkgImgWidget({child = Widget}) {
-    this.childWidget = child;
+  BkgImgWidget({super.key, child = Widget}) {
+    childWidget = child;
   }
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      decoration: new BoxDecoration(
-        image: new DecorationImage(
-          image: new AssetImage("assets/images/capsule.png"),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/capsule.png"),
           repeat: ImageRepeat.repeat,
         ),
       ),

@@ -5,6 +5,9 @@ import 'dart:async';
 import 'package:medimate/src/widgets/app_drawer.dart';
 
 class HomePage extends StatefulWidget {
+  static const String routeName = "/HomePage";
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -15,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 30), (timer) {
+    Timer.periodic(const Duration(seconds: 30), (timer) {
       setState(() {
         currentTime = DateFormat('hh:mm a').format(DateTime.now());
       });
@@ -33,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -45,21 +48,21 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 30,
                         backgroundImage:
                             AssetImage('assets/images/capsule.png'),
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "${getGreeting()}, Joanna",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "Current Time: $currentTime",
                             style: TextStyle(
@@ -69,10 +72,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Icon(Icons.notifications, color: Colors.black54, size: 28),
+                  const Icon(Icons.notifications,
+                      color: Colors.black54, size: 28),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   itemCount: medicineList.length,
@@ -92,7 +96,7 @@ class _HomePageState extends State<HomePage> {
 class MedicineCard extends StatelessWidget {
   final Medicine medicine;
 
-  MedicineCard({required this.medicine});
+  const MedicineCard({super.key, required this.medicine});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +107,7 @@ class MedicineCard extends StatelessWidget {
         elevation: 4,
         color: medicine.color,
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -111,36 +115,37 @@ class MedicineCard extends StatelessWidget {
                 radius: 30,
                 backgroundImage: AssetImage(medicine.image),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       medicine.time,
-                      style: TextStyle(color: Colors.black54, fontSize: 16),
+                      style:
+                          const TextStyle(color: Colors.black54, fontSize: 16),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       medicine.title,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(medicine.description,
-                        style: TextStyle(color: Colors.black87)),
+                        style: const TextStyle(color: Colors.black87)),
                   ],
                 ),
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: Text("Take"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                 ),
+                child: const Text("Take"),
               ),
             ],
           ),

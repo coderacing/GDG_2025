@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
 
       // Navigate to Homepage
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Google Sign-In Failed: $e")));
