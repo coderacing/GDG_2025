@@ -32,8 +32,6 @@ const about_jesus_youth_link = 'Jesus Youth International';
 const about_app_developed_by = '. App Developed by ';
 const about_ethiccoders_link = 'EthicCoders.';
 
-const map_apikey = 'AIzaSyA6PKUTrb2r0sU1Y4oo6BdPi1gGdUAgdsw';
-
 const key_text_scale_factor = "key_text_scale_factor";
 const key_lang_code = 'key_lang_code';
 const LANG_ENG = 0;
