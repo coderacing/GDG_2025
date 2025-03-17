@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Camera permission request -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Feature declaration (optional requirement for the camera) -->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <application
         android:label="medimate"
         android:name="${applicationName}"

@@ -7,8 +7,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.medimate"
-    compileSdk = flutter.compileSdkVersion
+    namespace "com.example.medimate"
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

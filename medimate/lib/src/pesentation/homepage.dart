@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medimate/src/pesentation/add_medi.dart';
 import 'dart:async';
 
 import 'package:medimate/src/widgets/app_drawer.dart';
+import 'package:medimate/src/widgets/camera.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/HomePage";
@@ -88,6 +90,16 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CameraScreen()),
+          );
+        },
+        child: Icon(Icons.add),
+        tooltip: "Add Medicine",
       ),
     );
   }

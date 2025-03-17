@@ -45,8 +45,14 @@ dependencies:
   get: 
   flutter_bloc: 
   simple_shadow: 
-  get_storage: ^2.1.1
-  equatable: ^2.0.7
+  get_storage:
+  equatable:
+  camera:
+  image_picker: 
+  google_mlkit_text_recognition:
+  http:
+  sqflite:
+  google_vision:
 
 dev_dependencies:
   flutter_test:
