@@ -17,8 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppsettingsCubit, AppsettingsState>(
       builder: (context, state) {
-        precacheImage(
-            const AssetImage('assets/images/app_logo_white.png'), context);
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: (state.isNightTheme()

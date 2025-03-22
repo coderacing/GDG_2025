@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medimate/src/pesentation/homepage.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -60,11 +59,16 @@ class _LoginPageState extends State<LoginPage> {
             const Text.rich(
               TextSpan(
                 text: 'Welcome to the ',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
                 children: <TextSpan>[
                   TextSpan(
                     text: 'Medimate',
-                    style: TextStyle(color: Color.fromARGB(255, 229, 139, 253), fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 229, 139, 253),
+                        fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: ' reminder app'),
                 ],
@@ -94,7 +98,10 @@ class _LoginPageState extends State<LoginPage> {
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text(
                         'Get started',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
               ),
             ),
@@ -113,7 +120,10 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: signInWithGoogle,
                   child: const Text(
                     'Sign in',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 229, 139, 253)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 229, 139, 253)),
                   ),
                 ),
               ],
