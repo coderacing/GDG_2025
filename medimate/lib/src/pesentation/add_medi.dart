@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class AddMedicineScreen extends StatefulWidget {
   final String extractedText;
-  AddMedicineScreen({required this.extractedText});
+  const AddMedicineScreen({super.key, required this.extractedText});
 
   @override
   _AddMedicineScreenState createState() => _AddMedicineScreenState();
@@ -50,7 +50,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
     setState(() => isLoading = false);
     ScaffoldMessenger.of(context as BuildContext).showSnackBar(
-      SnackBar(content: Text("Medicine saved successfully!")),
+      const SnackBar(content: Text("Medicine saved successfully!")),
     );
 
     Navigator.pop(context as BuildContext); // Go back after saving
@@ -59,7 +59,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add Medicine")),
+      appBar: AppBar(title: const Text("Add Medicine")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -67,20 +67,20 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
           children: [
             TextField(
               controller: nameController,
-              decoration: InputDecoration(labelText: "Medicine Name"),
+              decoration: const InputDecoration(labelText: "Medicine Name"),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: detailsController,
-              decoration: InputDecoration(labelText: "Medicine Details"),
+              decoration: const InputDecoration(labelText: "Medicine Details"),
               maxLines: 3,
             ),
-            SizedBox(height: 20),
-            isLoading ? CircularProgressIndicator() : SizedBox.shrink(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            isLoading ? const CircularProgressIndicator() : const SizedBox.shrink(),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: saveMedicine,
-              child: Text("Save Medicine"),
+              child: const Text("Save Medicine"),
             ),
           ],
         ),
