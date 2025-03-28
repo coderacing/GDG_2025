@@ -52,7 +52,10 @@ dependencies:
   google_mlkit_text_recognition:
   http:
   sqflite:
+  path:
   google_vision:
+  fuzzywuzzy:
+  xml2json:
 
 dev_dependencies:
   flutter_test:

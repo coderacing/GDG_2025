@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:medimate/src/pesentation/add_medi.dart';
-import 'dart:async';
-
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 import 'package:medimate/src/widgets/app_drawer.dart';
 import 'package:medimate/src/widgets/camera.dart';
 
@@ -16,14 +16,73 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String currentTime = DateFormat('hh:mm a').format(DateTime.now());
+  Database? _database;
+  List<Medicine> medicineList = [];
 
   @override
   void initState() {
     super.initState();
+    print("HomePage initState called");
+    _initDatabase().then((_) => fetchMedicines());
     Timer.periodic(const Duration(seconds: 30), (timer) {
       setState(() {
         currentTime = DateFormat('hh:mm a').format(DateTime.now());
       });
+    });
+  }
+
+  Future<void> _initDatabase() async {
+    _database = await openDatabase(
+      join(await getDatabasesPath(), 'medicine_database.db'),
+      version: 4,
+      onCreate: (db, version) async {
+        await db.execute(
+          "CREATE TABLE medicines(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, days TEXT, times TEXT)",
+        );
+      },
+    );
+    print("Database opened successfully");
+  }
+
+  Future<void> fetchMedicines() async {
+    if (_database == null) {
+      print("Database is null, cannot fetch medicines!");
+      return;
+    }
+
+    final List<Map<String, dynamic>> maps = await _database!.query('medicines');
+    print("Fetched ${maps.length} medicines from DB.");
+
+    setState(() {
+      medicineList = maps.map((map) {
+        String timesString = map['times'] ?? "";
+
+        String displayTimes = "";
+        if (timesString.isNotEmpty) {
+          displayTimes = timesString.split(',').map((dayTimes) {
+            final parts = dayTimes.split(':');
+            if (parts.length == 2) {
+              final dayIndex = int.parse(parts[0]);
+              final timeList = parts[1].split('|');
+
+              final day =
+                  ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][dayIndex];
+              final times = timeList.join(', ');
+              return "$day: $times";
+            }
+            return "";
+          }).join('; ');
+        }
+
+        return Medicine(
+          id: map['id'],
+          title: map['name'],
+          time: displayTimes,
+          description: "Take your medicine on time",
+          color: Colors.blue.shade100,
+          image: 'assets/images/capsule.png',
+        );
+      }).toList();
     });
   }
 
@@ -80,25 +139,42 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  itemCount: medicineList.length,
-                  itemBuilder: (context, index) {
-                    return MedicineCard(medicine: medicineList[index]);
-                  },
-                ),
-              ),
+                child: medicineList.isEmpty
+                    ? const Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              image:
+                                  AssetImage("assets/images/no_medicine.png"),
+                              width: 150,
+                              height: 150,
+                            ),
+                            SizedBox(height: 10),
+                            Text("No medicines added"),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: medicineList.length,
+                        itemBuilder: (context, index) {
+                          return MedicineCard(medicine: medicineList[index]);
+                        },
+                      ),
+              )
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => CameraScreen()),
           );
+          await fetchMedicines();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         tooltip: "Add Medicine",
       ),
     );
@@ -132,12 +208,12 @@ class MedicineCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      medicine.time,
-                      style:
-                          const TextStyle(color: Colors.black54, fontSize: 16),
-                    ),
-                    const SizedBox(height: 5),
+                    // Text(
+                    //   "Time: ${medicine.time}",
+                    //   style:
+                    //       const TextStyle(color: Colors.black54, fontSize: 16),
+                    // ),
+                    // const SizedBox(height: 5),
                     Text(
                       medicine.title,
                       style: const TextStyle(
@@ -168,10 +244,12 @@ class MedicineCard extends StatelessWidget {
 }
 
 class Medicine {
+  final int id;
   final String time, title, description, image;
   final Color color;
 
   Medicine({
+    required this.id,
     required this.time,
     required this.title,
     required this.description,
@@ -179,41 +257,3 @@ class Medicine {
     required this.image,
   });
 }
-
-List<Medicine> medicineList = [
-  Medicine(
-    time: "10:25 AM",
-    title: "Next medicine in 45 mins",
-    description: "Take your BP medicine Diuretics tablets with water",
-    color: Colors.purple.shade100,
-    image: 'assets/images/capsule.png',
-  ),
-  Medicine(
-    time: "11:45 AM",
-    title: "Bactrium Tablets",
-    description: "Take your urine infection tablets Bactrium with water",
-    color: Colors.pink.shade100,
-    image: 'assets/images/capsule.png',
-  ),
-  Medicine(
-    time: "02:00 PM",
-    title: "Ibuprofen Tablets",
-    description: "Take your back pain tablets Ibuprofen with milk",
-    color: Colors.blue.shade100,
-    image: 'assets/images/capsule.png',
-  ),
-  Medicine(
-    time: "10:25 AM",
-    title: "Next medicine in 45 mins",
-    description: "Take your BP medicine Diuretics tablets with water",
-    color: Colors.purple.shade100,
-    image: 'assets/images/capsule.png',
-  ),
-  Medicine(
-    time: "11:45 AM",
-    title: "Bactrium Tablets",
-    description: "Take your urine infection tablets Bactrium with water",
-    color: Colors.pink.shade100,
-    image: 'assets/images/capsule.png',
-  ),
-];

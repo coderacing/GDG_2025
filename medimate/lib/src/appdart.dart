@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:medimate/logic/cubit/settings/appsettings_cubit.dart';
 import 'package:medimate/src/pesentation/about_page.dart';
+import 'package:medimate/src/pesentation/add_medi.dart';
 import 'package:medimate/src/pesentation/homepage.dart';
 import 'package:medimate/src/pesentation/settings_page.dart';
 import 'package:medimate/src/pesentation/splashpage.dart';
@@ -34,6 +35,11 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: AboutPage.routeName,
                 page: () => _applyScaleFactor(const AboutPage())),
+            GetPage(
+                name: AddMedicineScreen.routeName,
+                page: () => _applyScaleFactor(const AddMedicineScreen(
+                      extractedText: '',
+                    ))),
           ],
         );
       },
