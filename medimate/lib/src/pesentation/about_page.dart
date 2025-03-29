@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
             children: [
               Center(
                 child: Image.asset(
-                  'assets/images/app_icon.png',
+                  'assets/images/app_logo.png',
                   width: 100,
                   height: 100,
                 ),
@@ -28,32 +28,51 @@ class AboutPage extends StatelessWidget {
               const Divider(),
               _buildSectionTitle("About the App"),
               _buildParagraph(
-                  "BeInspired offers verses from the Bible, quotes from saints, and Catholic wallpapers daily throughout the year. It aims to encourage and motivate laity, religious, and clergy along their Christian journey."),
+                  "MediMate helps you manage medications effortlessly with smart reminders and an intuitive interface. Stay on top of prescriptions, vitamins, and treatments for yourself or loved ones, and never miss a dose again!"),
               const Divider(),
               _buildSectionTitle("Developers"),
               _buildParagraph(
-                  "The app is developed by EthicCoders, a Catholic startup company specializing in purpose-driven and Catholic spirituality apps. With over 38+ apps developed for various organizations, they devote their development time to bringing technology to the Church."),
+                  "The app is developed by CodeRacers, a team of four passionate developers, dedicated to creating innovative solutions for everyday problems. We believe in the power of technology to make a positive impact on people's lives, and we strive to create apps that are user-friendly, reliable, and accessible to everyone."),
               const Divider(),
+              _buildSectionTitle("Visit Our LinkedIn Profiles"),
               _buildListTile(
                 icon: Icons.web,
-                title: "Visit Our Website",
-                subtitle: "https://ethiccoders.com",
-                onTap: () => _launchURL("https://ethiccoders.com"),
+                title: "Aswin Oomen Jacob",
+                subtitle: "https://www.linkedin.com/in/aswin-jacob-1ba26923b/",
+                onTap: () => _launchURL("https://www.linkedin.com/in/aswin-jacob-1ba26923b/"),
+              ),
+              _buildListTile(
+                icon: Icons.web,
+                title: "Angel Shibu",
+                subtitle: "https://www.linkedin.com/in/angel-shibu-a60251347",
+                onTap: () => _launchURL("https://www.linkedin.com/in/angel-shibu-a60251347"),
+              ),
+              _buildListTile(
+                icon: Icons.web,
+                title: "Christa Rachel Varghese",
+                subtitle: "https://www.linkedin.com/in/christa-varghese-957316282/",
+                onTap: () => _launchURL("https://www.linkedin.com/in/christa-varghese-957316282/"),
+              ),
+              _buildListTile(
+                icon: Icons.web,
+                title: "Ninz Milka Loji",
+                subtitle: "https://www.linkedin.com/in/ninz-milka-loji-7a6154264",
+                onTap: () => _launchURL("https://www.linkedin.com/in/ninz-milka-loji-7a6154264"),
               ),
               const Divider(),
               _buildListTile(
                 icon: Icons.email,
                 title: "Contact Us",
-                subtitle: "support@ethiccoders.com",
-                onTap: () => _launchURL("mailto:support@ethiccoders.com"),
+                subtitle: "coderacers3@gmail.com",
+                onTap: () => _launchURL("mailto:coderacers3@gmail.com"),
               ),
-              const Divider(),
+              /*const Divider(),
               _buildListTile(
                 icon: Icons.lock,
                 title: "Privacy Policy",
                 subtitle: "Read our privacy policy",
                 onTap: () => _launchURL("https://ethiccoders.com/privacy"),
-              ),
+              ),*/
               const Divider(),
               _buildListTile(
                 icon: Icons.info,
@@ -96,7 +115,7 @@ class AboutPage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.blue),
+      leading: Icon(icon, color: const Color.fromARGB(255, 229, 139, 253)),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(subtitle),
       onTap: onTap,
@@ -104,10 +123,11 @@ class AboutPage extends StatelessWidget {
   }
 
   void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  final Uri uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
   }
+}
 }
