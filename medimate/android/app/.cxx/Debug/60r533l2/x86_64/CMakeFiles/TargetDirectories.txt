@@ -1,0 +1,2 @@
+D:/GDG_2025/medimate/android/app/.cxx/Debug/60r533l2/x86_64/CMakeFiles/edit_cache.dir
+D:/GDG_2025/medimate/android/app/.cxx/Debug/60r533l2/x86_64/CMakeFiles/rebuild_cache.dir

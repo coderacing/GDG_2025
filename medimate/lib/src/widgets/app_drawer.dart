@@ -66,7 +66,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget _buildDrawerHeader() {
     return DrawerHeader(
       decoration: const BoxDecoration(
-        color: MMTheme.blue,
+        color: MMTheme.pink,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,12 +134,12 @@ class AppDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icons,
-          color: selectedIndex == index ? Colors.blue : Colors.grey),
+          color: selectedIndex == index ? Colors.pink : Colors.grey),
       title: Text(title,
           style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       selected: (selectedIndex == index),
-      selectedTileColor: MMTheme.blue.withOpacity(0.2),
+      selectedTileColor: MMTheme.pink.withOpacity(0.2),
       onTap: () {
         menuItemSelected(index);
         Navigator.pushNamed(context, routeName);

@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 
 class MMTheme {
   MMTheme._(); // this basically makes it so you can instantiate this class
-  static const _bluePrimaryValue = 0xFF065fad;
+  static const _pinkPrimaryValue = 0xFFFF4081;
 
-  static const MaterialColor blue = MaterialColor(
-    _bluePrimaryValue,
+  static const MaterialColor pink = MaterialColor(
+    _pinkPrimaryValue,
     <int, Color>{
-      50: Color(0xFFe0e0e0),
-      100: Color(0xFFb3b3b3),
-      200: Color(0xFF808080),
-      300: Color(0xFF4d4d4d),
-      400: Color(0xFF262626),
-      500: Color(_bluePrimaryValue),
-      600: Color(0xFF000000),
-      700: Color(0xFF000000),
-      800: Color(0xFF000000),
-      900: Color(0xFF000000),
+      50: Color(0xFFFFEBEE),
+      100: Color(0xFFF8BBD0),
+      200: Color(0xFFD48FB1),
+      300: Color(0xFFE91E63),
+      400: Color(0xFFD81B60),
+      500: Color(_pinkPrimaryValue),
+      600: Color(0xFFC51162),
+      700: Color(0xFFAA0044),
+      800: Color(0xFF880E4F),
+      900: Color(0xFF560027),
     },
   );
 
   static headingTextStyle() {
     return const TextStyle(
-      color: MMTheme.blue,
+      color: MMTheme.pink,
       fontWeight: FontWeight.bold,
       fontSize: 18.0,
     );
   }
 
   static titleTextStyle() {
-    return const TextStyle(color: MMTheme.blue, fontWeight: FontWeight.bold);
+    return const TextStyle(color: MMTheme.pink, fontWeight: FontWeight.bold);
   }
 
   static titleTextWhiteStyle() {
@@ -38,38 +38,38 @@ class MMTheme {
 
   static obituaryTitleTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontWeight: FontWeight.bold, fontSize: 16.0);
+        color: MMTheme.pink, fontWeight: FontWeight.bold, fontSize: 16.0);
   }
 
   static boldTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontWeight: FontWeight.bold, fontSize: 14);
+        color: MMTheme.pink, fontWeight: FontWeight.bold, fontSize: 14);
   }
 
   static bodyTextStyle() {
     return const TextStyle(
-      color: MMTheme.blue,
+      color: MMTheme.pink,
       fontSize: 14.0,
     );
   }
 
   static prefixTextStyle() {
-    return const TextStyle(color: MMTheme.blue, fontSize: 14.0);
+    return const TextStyle(color: MMTheme.pink, fontSize: 14.0);
   }
 
   static bodyMalayalamTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontSize: 14.0, fontFamily: "thiruvachanam");
+        color: MMTheme.pink, fontSize: 14.0, fontFamily: "thiruvachanam");
   }
 
   static prefixMalayalamTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontSize: 18.0, fontFamily: "thiruvachanam");
+        color: MMTheme.pink, fontSize: 18.0, fontFamily: "thiruvachanam");
   }
 
   static titleMalayalamTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontSize: 20.0, fontFamily: "thiruvachanam");
+        color: MMTheme.pink, fontSize: 20.0, fontFamily: "thiruvachanam");
   }
 
   static titleMalayalamTextWhiteStyle() {
@@ -79,12 +79,12 @@ class MMTheme {
 
   static italicbodyTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontSize: 14.0, fontStyle: FontStyle.italic);
+        color: MMTheme.pink, fontSize: 14.0, fontStyle: FontStyle.italic);
   }
 
   static boldbodyTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue, fontSize: 14.0, fontWeight: FontWeight.bold);
+        color: MMTheme.pink, fontSize: 14.0, fontWeight: FontWeight.bold);
   }
 
   static linkTextStyle() {
@@ -116,25 +116,27 @@ class MMTheme {
 
   static italicMalayalamTextStyle() {
     return const TextStyle(
-        color: MMTheme.blue,
+        color: MMTheme.pink,
         fontSize: 16.0,
         fontFamily: "thiruvachanam",
         fontStyle: FontStyle.italic);
   }
 
   static ThemeData kGalleryDarkTheme = ThemeData(
-    brightness: Brightness.dark,
-    colorSchemeSeed: MMTheme.blue,
-    dividerColor: Colors.transparent,
-    useMaterial3: true,
+  brightness: Brightness.dark,
+  colorSchemeSeed: MMTheme.pink,
+  dividerColor: Colors.transparent,
+  scaffoldBackgroundColor: Colors.black,
+  useMaterial3: true,
   );
   static ThemeData kGalleryLightTheme = ThemeData(
     brightness: Brightness.light,
     dividerColor: Colors.transparent,
+    scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: MMTheme.blue,
+      seedColor: MMTheme.pink,
       onTertiary: Colors.orange,
-      secondary: MMTheme.blue,
+      secondary: MMTheme.pink,
     ),
   );
 }

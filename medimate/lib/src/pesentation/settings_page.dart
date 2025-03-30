@@ -35,11 +35,11 @@ class _SettingsPageState extends State<SettingsPage> {
         children: const [
           DayNightModeWidget(),
           Divider(
-            color: MMTheme.blue,
+            color: Color.fromARGB(255, 248, 187, 208),
           ),
           FontSizeWidget(),
           Divider(
-            color: MMTheme.blue,
+            color: Color.fromARGB(255, 248, 187, 208),
           ),
         ],
       ),

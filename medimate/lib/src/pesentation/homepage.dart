@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           title: map['name'],
           time: displayTimes,
           description: "Take your medicine on time",
-          color: Colors.blue.shade100,
+          color: Colors.pink.shade100,
           image: 'assets/images/capsule.png',
         );
       }).toList();
