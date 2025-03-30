@@ -35,50 +35,34 @@ class AboutPage extends StatelessWidget {
                   "The app is developed by CodeRacers, a team of four passionate developers, dedicated to creating innovative solutions for everyday problems. We believe in the power of technology to make a positive impact on people's lives, and we strive to create apps that are user-friendly, reliable, and accessible to everyone."),
               const Divider(),
               _buildSectionTitle("Visit Our LinkedIn Profiles"),
-              _buildListTile(
-                icon: Icons.web,
+              _buildClickableLink(
                 title: "Aswin Oomen Jacob",
-                subtitle: "https://www.linkedin.com/in/aswin-jacob-1ba26923b/",
-                onTap: () => _launchURL("https://www.linkedin.com/in/aswin-jacob-1ba26923b/"),
+                url: "https://www.linkedin.com/in/aswin-jacob-1ba26923b/",
               ),
-              _buildListTile(
-                icon: Icons.web,
+              _buildClickableLink(
                 title: "Angel Shibu",
-                subtitle: "https://www.linkedin.com/in/angel-shibu-a60251347",
-                onTap: () => _launchURL("https://www.linkedin.com/in/angel-shibu-a60251347"),
+                url: "https://www.linkedin.com/in/angel-shibu-a60251347",
               ),
-              _buildListTile(
-                icon: Icons.web,
+              _buildClickableLink(
                 title: "Christa Rachel Varghese",
-                subtitle: "https://www.linkedin.com/in/christa-varghese-957316282/",
-                onTap: () => _launchURL("https://www.linkedin.com/in/christa-varghese-957316282/"),
+                url: "https://www.linkedin.com/in/christa-varghese-957316282/",
               ),
-              _buildListTile(
-                icon: Icons.web,
+              _buildClickableLink(
                 title: "Ninz Milka Loji",
-                subtitle: "https://www.linkedin.com/in/ninz-milka-loji-7a6154264",
-                onTap: () => _launchURL("https://www.linkedin.com/in/ninz-milka-loji-7a6154264"),
+                url: "https://www.linkedin.com/in/ninz-milka-loji-7a6154264",
               ),
               const Divider(),
-              _buildListTile(
-                icon: Icons.email,
+              _buildClickableLink(
                 title: "Contact Us",
-                subtitle: "coderacers3@gmail.com",
-                onTap: () => _launchURL("mailto:coderacers3@gmail.com"),
+                url: "mailto:coderacers3@gmail.com",
               ),
-              /*const Divider(),
-              _buildListTile(
-                icon: Icons.lock,
-                title: "Privacy Policy",
-                subtitle: "Read our privacy policy",
-                onTap: () => _launchURL("https://ethiccoders.com/privacy"),
-              ),*/
               const Divider(),
-              _buildListTile(
-                icon: Icons.info,
-                title: "App Version",
-                subtitle: "1.0.0",
-                onTap: () {},
+              ListTile(
+                leading: const Icon(Icons.info,
+                    color: Color.fromARGB(255, 229, 139, 253)),
+                title: const Text("App Version",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text("1.0.0"),
               ),
             ],
           ),
@@ -108,26 +92,27 @@ class AboutPage extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildClickableLink({required String title, required String url}) {
     return ListTile(
-      leading: Icon(icon, color: const Color.fromARGB(255, 229, 139, 253)),
+      leading:
+          const Icon(Icons.link, color: Color.fromARGB(255, 229, 139, 253)),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: Text(subtitle),
-      onTap: onTap,
+      subtitle: InkWell(
+        onTap: () => _launchURL(url),
+        child: Text(
+          url,
+          style: const TextStyle(
+              color: Colors.blue, decoration: TextDecoration.underline),
+        ),
+      ),
     );
   }
 
   void _launchURL(String url) async {
-  final Uri uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
-  } else {
-    throw 'Could not launch $url';
+    final Uri uri = Uri.parse(url);
+
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      debugPrint('Could not launch $url');
+    }
   }
-}
 }
