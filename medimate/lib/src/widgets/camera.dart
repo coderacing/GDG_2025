@@ -31,7 +31,20 @@ class _CameraScreenState extends State<CameraScreen> {
     "Omeprazole",
     "Atorvastatin",
     "Losartan",
-    "Hydrochlorothiazide"
+    "Hydrochlorothiazide",
+    "Avil",
+    "Neurobion",
+    "Diclofenac",
+    "Tramadol",
+    "Diphenhydramine",
+    "Sertraline",
+    "Escitalopram",
+    "Citalopram",
+    "Amitriptyline",
+    "Prednisone",
+    "Levothyroxine",
+    "Acetaminophen"
+
   ];
 
   Future<void> pickImage(ImageSource source) async {
@@ -85,7 +98,7 @@ class _CameraScreenState extends State<CameraScreen> {
     if (foundMedicines.isEmpty) {
       final bestMatch = extractOne(query: text, choices: medicineList);
       if ((bestMatch.score ?? 0) > 70) {
-        foundMedicines.add(bestMatch.choice!);
+        foundMedicines.add(bestMatch.choice);
       }
     }
 
