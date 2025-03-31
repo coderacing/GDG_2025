@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       drawer: const AppDrawer(),
       body: SafeArea(
         child: Padding(

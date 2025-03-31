@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medimate/src/widgets/app_drawer.dart';
 import 'package:medimate/src/widgets/daynightmode_widget.dart';
 import 'package:medimate/src/widgets/fontsize_widget.dart';
 import 'package:medimate/theme/mm_theme.dart';
@@ -28,9 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title ?? ''),
-      ),
+      appBar: AppBar(title: const Text("Settings")),
+      drawer: const AppDrawer(),
       body: ListView(
         children: const [
           DayNightModeWidget(),
