@@ -1,3 +1,50 @@
+import 'package:flutter/material.dart';
+
+class AppConstants {
+  static const String appTitle = "About";
+
+  // About Section
+  static const String aboutAppTitle = "About the App";
+  static const String aboutAppDescription =
+      "MediMate helps you manage medications effortlessly with smart reminders and an intuitive interface. Stay on top of prescriptions, vitamins, and treatments for yourself or loved ones, and never miss a dose again!";
+
+  // Developers Section
+  static const String developersTitle = "Developers";
+  static const String developersDescription =
+      "The app is developed by CodeRacers, a team of four passionate developers, dedicated to creating innovative solutions for everyday problems. We believe in the power of technology to make a positive impact on people's lives, and we strive to create apps that are user-friendly, reliable, and accessible to everyone.";
+
+  // LinkedIn Section
+  static const String visitLinkedInTitle = "Visit Our LinkedIn Profiles";
+  static const List<Map<String, String>> developerLinks = [
+    {
+      "name": "Aswin Oomen Jacob",
+      "url": "https://www.linkedin.com/in/aswin-jacob-1ba26923b/"
+    },
+    {
+      "name": "Angel Shibu",
+      "url": "https://www.linkedin.com/in/angel-shibu-a60251347"
+    },
+    {
+      "name": "Christa Rachel Varghese",
+      "url": "https://www.linkedin.com/in/christa-varghese-957316282/"
+    },
+    {
+      "name": "Ninz Milka Loji",
+      "url": "https://www.linkedin.com/in/ninz-milka-loji-7a6154264"
+    }
+  ];
+
+  // Contact Section
+  static const String contactUsTitle = "Contact Us";
+  static const String contactUsEmail = "mailto:coderacers3@gmail.com";
+
+  // App Version
+  static const String appVersionTitle = "App Version";
+  static const String appVersion = "1.0.0";
+}
+
+
+
 const debug = false; // Porduction build should have it as false;
 const String APP_NAME = "The UR App";
 

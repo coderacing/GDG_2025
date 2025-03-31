@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medimate/src/widgets/app_drawer.dart';
+import 'package:medimate/src/utils/const.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("About")),
+      appBar: AppBar(title: const Text(AppConstants.appTitle)),
       drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Padding(
@@ -26,43 +27,31 @@ class AboutPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Divider(),
-              _buildSectionTitle("About the App"),
-              _buildParagraph(
-                  "MediMate helps you manage medications effortlessly with smart reminders and an intuitive interface. Stay on top of prescriptions, vitamins, and treatments for yourself or loved ones, and never miss a dose again!"),
+              _buildSectionTitle(AppConstants.aboutAppTitle),
+              _buildParagraph(AppConstants.aboutAppDescription),
               const Divider(),
-              _buildSectionTitle("Developers"),
-              _buildParagraph(
-                  "The app is developed by CodeRacers, a team of four passionate developers, dedicated to creating innovative solutions for everyday problems. We believe in the power of technology to make a positive impact on people's lives, and we strive to create apps that are user-friendly, reliable, and accessible to everyone."),
+              _buildSectionTitle(AppConstants.developersTitle),
+              _buildParagraph(AppConstants.developersDescription),
               const Divider(),
-              _buildSectionTitle("Visit Our LinkedIn Profiles"),
-              _buildClickableLink(
-                title: "Aswin Oomen Jacob",
-                url: "https://www.linkedin.com/in/aswin-jacob-1ba26923b/",
-              ),
-              _buildClickableLink(
-                title: "Angel Shibu",
-                url: "https://www.linkedin.com/in/angel-shibu-a60251347",
-              ),
-              _buildClickableLink(
-                title: "Christa Rachel Varghese",
-                url: "https://www.linkedin.com/in/christa-varghese-957316282/",
-              ),
-              _buildClickableLink(
-                title: "Ninz Milka Loji",
-                url: "https://www.linkedin.com/in/ninz-milka-loji-7a6154264",
+              _buildSectionTitle(AppConstants.visitLinkedInTitle),
+              ...AppConstants.developerLinks.map(
+                (developer) => _buildClickableLink(
+                  title: developer["name"]!,
+                  url: developer["url"]!,
+                ),
               ),
               const Divider(),
               _buildClickableLink(
-                title: "Contact Us",
-                url: "mailto:coderacers3@gmail.com",
+                title: AppConstants.contactUsTitle,
+                url: AppConstants.contactUsEmail,
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.info,
                     color: Color.fromARGB(255, 229, 139, 253)),
-                title: const Text("App Version",
+                title: const Text(AppConstants.appVersionTitle,
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text("1.0.0"),
+                subtitle: const Text(AppConstants.appVersion),
               ),
             ],
           ),
@@ -110,7 +99,6 @@ class AboutPage extends StatelessWidget {
 
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
-
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       debugPrint('Could not launch $url');
     }
