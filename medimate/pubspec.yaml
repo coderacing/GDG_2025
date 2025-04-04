@@ -56,6 +56,7 @@ dependencies:
   google_vision:
   fuzzywuzzy:
   xml2json:
+  alarm:
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/medico_clock.png
+    - assets/audio/alarm.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

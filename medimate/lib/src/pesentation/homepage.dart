@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print("HomePage initState called");
     _initDatabase().then((_) => fetchMedicines());
     Timer.periodic(const Duration(seconds: 30), (timer) {
       setState(() {
@@ -41,17 +40,12 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
-    print("Database opened successfully");
   }
 
   Future<void> fetchMedicines() async {
-    if (_database == null) {
-      print("Database is null, cannot fetch medicines!");
-      return;
-    }
+    if (_database == null) return;
 
     final List<Map<String, dynamic>> maps = await _database!.query('medicines');
-    print("Fetched ${maps.length} medicines from DB.");
 
     setState(() {
       medicineList = maps.map((map) {
@@ -103,38 +97,47 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                            AssetImage('assets/images/capsule.png'),
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${getGreeting()}, Joanna",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "Current Time: $currentTime",
-                            style: TextStyle(
-                                fontSize: 16, color: Colors.grey[600]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Icon(Icons.notifications,
-                      color: Colors.black54, size: 28),
-                ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DetailsPage()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage('assets/images/capsule.png'),
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${getGreeting()}, Joanna",
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "Current Time: $currentTime",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600]),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Icon(Icons.notifications,
+                        color: Colors.black54, size: 28),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -207,12 +210,6 @@ class MedicineCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text(
-                    //   "Time: ${medicine.time}",
-                    //   style:
-                    //       const TextStyle(color: Colors.black54, fontSize: 16),
-                    // ),
-                    // const SizedBox(height: 5),
                     Text(
                       medicine.title,
                       style: const TextStyle(
@@ -255,4 +252,16 @@ class Medicine {
     required this.color,
     required this.image,
   });
+}
+
+class DetailsPage extends StatelessWidget {
+  const DetailsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Details Page")),
+      body: const Center(child: Text("Welcome to Details Page")),
+    );
+  }
 }

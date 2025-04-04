@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medimate/src/widgets/app_drawer.dart';
 import 'package:medimate/src/widgets/daynightmode_widget.dart';
 import 'package:medimate/src/widgets/fontsize_widget.dart';
-import 'package:medimate/theme/mm_theme.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, this.title});
