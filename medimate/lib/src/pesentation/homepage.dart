@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medimate/src/pesentation/details_page.dart';
+import 'package:medimate/src/services/alarm_service.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:medimate/src/widgets/app_drawer.dart';
 import 'package:medimate/src/widgets/camera.dart';
+import 'package:alarm/alarm.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/HomePage";
@@ -75,9 +78,12 @@ class _HomePageState extends State<HomePage> {
           description: "Take your medicine on time",
           color: Colors.pink.shade100,
           image: 'assets/images/capsule.png',
+          alarmId: DateTime.now().millisecondsSinceEpoch % 100000,
         );
       }).toList();
     });
+
+    await AlarmService.scheduleMedicineAlarms(maps);
   }
 
   String getGreeting() {
@@ -97,47 +103,38 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DetailsPage()),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              AssetImage('assets/images/capsule.png'),
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${getGreeting()}, Joanna",
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "Current Time: $currentTime",
-                              style: TextStyle(
-                                  fontSize: 16, color: Colors.grey[600]),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const Icon(Icons.notifications,
-                        color: Colors.black54, size: 28),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 30,
+                        backgroundImage:
+                            AssetImage('assets/images/capsule.png'),
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${getGreeting()}, Joanna",
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            "Current Time: $currentTime",
+                            style: TextStyle(
+                                fontSize: 16, color: Colors.grey[600]),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Icon(Icons.notifications,
+                      color: Colors.black54, size: 28),
+                ],
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -192,46 +189,65 @@ class MedicineCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        elevation: 4,
-        color: medicine.color,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(medicine.image),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      medicine.title,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(medicine.description,
-                        style: const TextStyle(color: Colors.black87)),
-                  ],
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsPage(medicineId: medicine.id),
+            ),
+          );
+        },
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          elevation: 4,
+          color: medicine.color,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage(medicine.image),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        medicine.title,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        medicine.description,
+                        style: const TextStyle(color: Colors.black87),
+                      ),
+                    ],
+                  ),
                 ),
-                child: const Text("Take"),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: () async {
+                    await Alarm.stop(medicine.alarmId);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Alarm stopped")),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: const Text("Take"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -241,27 +257,17 @@ class MedicineCard extends StatelessWidget {
 
 class Medicine {
   final int id;
+  final int alarmId;
   final String time, title, description, image;
   final Color color;
 
   Medicine({
     required this.id,
+    required this.alarmId,
     required this.time,
     required this.title,
     required this.description,
     required this.color,
     required this.image,
   });
-}
-
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Details Page")),
-      body: const Center(child: Text("Welcome to Details Page")),
-    );
-  }
 }

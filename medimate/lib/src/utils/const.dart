@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AppConstants {
   static const String appTitle = "About";
 
@@ -42,8 +40,6 @@ class AppConstants {
   static const String appVersionTitle = "App Version";
   static const String appVersion = "1.0.0";
 }
-
-
 
 const debug = false; // Porduction build should have it as false;
 const String APP_NAME = "The UR App";

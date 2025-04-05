@@ -10,9 +10,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Alarm.init();
-  await AlarmService.setAlarm(
-      "Test Medicine", DateTime.now().add(Duration(minutes: 1)));
-
   runApp(const AppMultiBlocProvider());
 }
 

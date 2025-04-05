@@ -29,6 +29,8 @@ class AlarmService {
 
   static Future<void> scheduleMedicineAlarms(
       List<Map<String, dynamic>> medicines) async {
+    await Alarm.stopAll(); // 🔄 Clean up existing alarms
+
     for (var map in medicines) {
       String medicineName = map['name'];
       String timesString = map['times'] ?? "";
@@ -40,25 +42,35 @@ class AlarmService {
             final timeList = parts[1].split('|');
 
             for (String time in timeList) {
-              DateTime now = DateTime.now();
-              DateTime scheduledTime = DateFormat('hh:mm a').parse(time);
-              DateTime alarmTime = DateTime(
-                now.year,
-                now.month,
-                now.day,
-                scheduledTime.hour,
-                scheduledTime.minute,
-              );
+              try {
+                DateTime now = DateTime.now();
+                DateTime parsedTime = DateFormat('hh:mm a').parse(time);
 
-              if (alarmTime.isBefore(now)) {
-                alarmTime = alarmTime.add(const Duration(days: 1));
+                DateTime alarmTime = DateTime(
+                  now.year,
+                  now.month,
+                  now.day,
+                  parsedTime.hour,
+                  parsedTime.minute,
+                );
+
+                if (alarmTime.isBefore(now)) {
+                  alarmTime = alarmTime.add(const Duration(days: 1));
+                }
+
+                await setAlarm(medicineName, alarmTime);
+              } catch (e) {
+                print("Error parsing time '$time': $e");
               }
-
-              await setAlarm(medicineName, alarmTime);
             }
           }
         }
       }
     }
+  }
+
+  static Future<void> cancelAlarm(int alarmId) async {
+    await Alarm.stop(alarmId);
+    print("Alarm with ID $alarmId canceled.");
   }
 }
