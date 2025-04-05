@@ -126,13 +126,13 @@ class MMTheme {
   brightness: Brightness.dark,
   colorSchemeSeed: MMTheme.pink,
   dividerColor: Colors.transparent,
-  scaffoldBackgroundColor: Colors.black,
+  scaffoldBackgroundColor: Color.fromARGB(255, 20, 0, 21),
   useMaterial3: true,
   );
   static ThemeData kGalleryLightTheme = ThemeData(
     brightness: Brightness.light,
     dividerColor: Colors.transparent,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
     colorScheme: ColorScheme.fromSeed(
       seedColor: MMTheme.pink,
       onTertiary: Colors.orange,
