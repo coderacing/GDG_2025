@@ -50,30 +50,37 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Drawer(
-      child: BkgImgWidget(
-        child: ListView(
-          padding: const EdgeInsets.all(0),
-          children: <Widget>[
-            _buildDrawerHeader(),
-            ..._buildDrawerItems(),
-          ],
+      child: Container(
+        color: isDarkMode ? const Color.fromARGB(255, 20, 0, 21) : null, // Apply dark mode color
+        child: BkgImgWidget(
+          child: ListView(
+            padding: const EdgeInsets.all(0),
+            children: <Widget>[
+              _buildDrawerHeader(isDarkMode),
+              ..._buildDrawerItems(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildDrawerHeader() {
+  Widget _buildDrawerHeader(bool isDarkMode) {
     return DrawerHeader(
-      decoration: const BoxDecoration(
-        color: MMTheme.pink,
+      decoration: BoxDecoration(
+        color: isDarkMode
+            ? const Color.fromARGB(255, 211, 106, 238) // Dark mode header
+            : const Color.fromARGB(255, 229, 170, 244), // Light mode header
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Image.asset('assets/images/capsule.png', width: 80.0, height: 80.0),
+          Image.asset('assets/images/app_logo.png', width: 80.0, height: 80.0),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'Medimate',
             style: TextStyle(
               color: Colors.white,
@@ -90,22 +97,21 @@ class _AppDrawerState extends State<AppDrawer> {
     return List.generate(_drawerItems.length, (index) {
       final item = _drawerItems[index];
       return AppDrawerItem(
-          title: item["title"],
-          subtitle: item["subtitle"],
-          icons: item["icon"],
-          routeName: item["route"],
-          index: index,
-          selectedIndex: widget.selectedIndex ?? 0,
-          menuItemSelected: (int selIndex) {
-            setState(
-              () {
-                Navigator.of(context).pop(); // Close drawer first
-                if (widget.selectedIndex != selIndex) {
-                  Navigator.of(context).pushNamed(item["route"]);
-                }
-              },
-            );
+        title: item["title"],
+        subtitle: item["subtitle"],
+        icons: item["icon"],
+        routeName: item["route"],
+        index: index,
+        selectedIndex: widget.selectedIndex ?? 0,
+        menuItemSelected: (int selIndex) {
+          setState(() {
+            Navigator.of(context).pop(); // Close drawer
+            if (widget.selectedIndex != selIndex) {
+              Navigator.of(context).pushNamed(item["route"]);
+            }
           });
+        },
+      );
     });
   }
 }
@@ -133,13 +139,17 @@ class AppDrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icons,
-          color: selectedIndex == index ? Colors.pink : Colors.grey),
-      title: Text(title,
-          style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+      leading: Icon(
+        icons,
+        color: selectedIndex == index ? Color.fromARGB(255, 229, 170, 244): Colors.grey,
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+      ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       selected: (selectedIndex == index),
-      selectedTileColor: MMTheme.pink.withOpacity(0.2),
+      selectedTileColor: Color.fromARGB(255, 229, 170, 244).withOpacity(0.2),
       onTap: () {
         menuItemSelected(index);
         Navigator.pushNamed(context, routeName);
