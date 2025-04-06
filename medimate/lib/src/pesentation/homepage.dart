@@ -23,14 +23,25 @@ class _HomePageState extends State<HomePage> {
   List<Medicine> medicineList = [];
 
   @override
+  late Timer _timer; // Declare at the top of the State class
+
+  @override
   void initState() {
     super.initState();
     _initDatabase().then((_) => fetchMedicines());
-    Timer.periodic(const Duration(seconds: 30), (timer) {
-      setState(() {
-        currentTime = DateFormat('hh:mm a').format(DateTime.now());
-      });
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      if (mounted) {
+        setState(() {
+          currentTime = DateFormat('hh:mm a').format(DateTime.now());
+        });
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel when widget is removed
+    super.dispose();
   }
 
   Future<void> _initDatabase() async {
@@ -108,17 +119,18 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                            AssetImage('assets/images/capsule.png'),
+                      Image.asset(
+                        'assets/images/app_logo.png',
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
                       ),
                       const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${getGreeting()}, Joanna",
+                            "${getGreeting()}",
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),

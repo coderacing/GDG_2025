@@ -9,6 +9,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
 class DetailsPage extends StatefulWidget {
+  static const String routeName = "/DetailsPage";
   final int medicineId;
 
   const DetailsPage({super.key, required this.medicineId});

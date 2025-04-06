@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medimate/src/pesentation/about_page.dart';
 import 'package:medimate/src/pesentation/homepage.dart';
+import 'package:medimate/src/pesentation/nearest_pharmacy%20.dart';
 import 'package:medimate/src/pesentation/settings_page.dart';
 import 'package:medimate/src/widgets/bkg_img_widget.dart';
-import 'package:medimate/theme/mm_theme.dart';
 
 class AppDrawer extends StatefulWidget {
   static const int HOME_INDEX = 0;
-  static const int SETTINGS_INDEX = 1;
-  static const int ABOUT_INDEX = 2;
+  static const int NEAREST_PHARMACY_INDEX = 1;
+  static const int SETTINGS_INDEX = 2;
+  static const int ABOUT_INDEX = 3;
 
   final int? selectedIndex;
 
@@ -27,6 +29,12 @@ class _AppDrawerState extends State<AppDrawer> {
       "icon": Icons.home,
       "subtitle": "Back to homepage",
       "route": HomePage.routeName,
+    },
+    {
+      "title": "Nearest Pharmacy",
+      "icon": Icons.local_pharmacy,
+      "subtitle": "Find nearest pharmacy",
+      "route": NearestPharmacyPage.routeName,
     },
     {
       "title": "Settings",
@@ -54,11 +62,11 @@ class _AppDrawerState extends State<AppDrawer> {
 
     return Drawer(
       child: Container(
-        color: isDarkMode ? const Color.fromARGB(255, 20, 0, 21) : null, // Apply dark mode color
+        color: isDarkMode ? const Color.fromARGB(255, 20, 0, 21) : null,
         child: BkgImgWidget(
           child: ListView(
-            padding: const EdgeInsets.all(0),
-            children: <Widget>[
+            padding: EdgeInsets.zero,
+            children: [
               _buildDrawerHeader(isDarkMode),
               ..._buildDrawerItems(),
             ],
@@ -72,15 +80,15 @@ class _AppDrawerState extends State<AppDrawer> {
     return DrawerHeader(
       decoration: BoxDecoration(
         color: isDarkMode
-            ? const Color.fromARGB(255, 211, 106, 238) // Dark mode header
-            : const Color.fromARGB(255, 229, 170, 244), // Light mode header
+            ? const Color.fromARGB(255, 211, 106, 238)
+            : const Color.fromARGB(255, 229, 170, 244),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Image.asset('assets/images/app_logo.png', width: 80.0, height: 80.0),
           const SizedBox(height: 10),
-          Text(
+          const Text(
             'Medimate',
             style: TextStyle(
               color: Colors.white,
@@ -102,12 +110,13 @@ class _AppDrawerState extends State<AppDrawer> {
         icons: item["icon"],
         routeName: item["route"],
         index: index,
-        selectedIndex: widget.selectedIndex ?? 0,
+        selectedIndex: selectedIndex,
         menuItemSelected: (int selIndex) {
           setState(() {
-            Navigator.of(context).pop(); // Close drawer
-            if (widget.selectedIndex != selIndex) {
-              Navigator.of(context).pushNamed(item["route"]);
+            Navigator.of(context).pop(); // Close the drawer
+            if (selectedIndex != selIndex) {
+              Get.toNamed(item["route"]);
+              selectedIndex = selIndex;
             }
           });
         },
@@ -141,18 +150,20 @@ class AppDrawerItem extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icons,
-        color: selectedIndex == index ? Color.fromARGB(255, 229, 170, 244): Colors.grey,
+        color: selectedIndex == index
+            ? const Color.fromARGB(255, 229, 170, 244)
+            : Colors.grey,
       ),
       title: Text(
         title,
         style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
       ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
-      selected: (selectedIndex == index),
-      selectedTileColor: Color.fromARGB(255, 229, 170, 244).withOpacity(0.2),
+      selected: selectedIndex == index,
+      selectedTileColor:
+          const Color.fromARGB(255, 229, 170, 244).withOpacity(0.2),
       onTap: () {
         menuItemSelected(index);
-        Navigator.pushNamed(context, routeName);
       },
     );
   }

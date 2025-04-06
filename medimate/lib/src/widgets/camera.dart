@@ -13,6 +13,7 @@ import 'package:xml2json/xml2json.dart';
 class CameraScreen extends StatefulWidget {
   @override
   _CameraScreenState createState() => _CameraScreenState();
+  static const String routeName = "/CameraScreen";
 }
 
 class _CameraScreenState extends State<CameraScreen> {
@@ -44,7 +45,6 @@ class _CameraScreenState extends State<CameraScreen> {
     "Prednisone",
     "Levothyroxine",
     "Acetaminophen"
-
   ];
 
   Future<void> pickImage(ImageSource source) async {

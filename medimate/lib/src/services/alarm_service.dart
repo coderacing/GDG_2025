@@ -1,5 +1,4 @@
 import 'package:alarm/alarm.dart';
-import 'package:alarm/model/volume_settings.dart'; // Import this for volume control
 import 'package:intl/intl.dart';
 
 class AlarmService {
@@ -11,16 +10,16 @@ class AlarmService {
       loopAudio: true,
       vibrate: true,
 
-      notificationSettings: NotificationSettings(
-        title: "Medicine Reminder",
-        body: "Time to take: $medicineName",
-      ),
+      // ✅ For 3.1.0, use these instead of notificationSettings:
+      notificationTitle: "Medicine Reminder",
+      notificationBody: "Time to take: $medicineName",
 
-      // ✅ Added volumeSettings
-      volumeSettings: VolumeSettings.fade(
-        fadeDuration: Duration(seconds: 5),
-        volume: 0.2,
-      ),
+      // ✅ Volume-related settings
+      volume: 0.2,
+      fadeDuration: 5.0,
+
+      androidFullScreenIntent: true,
+      enableNotificationOnKill: true,
     );
 
     await Alarm.set(alarmSettings: alarmSettings);

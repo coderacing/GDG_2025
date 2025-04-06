@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 import 'package:medimate/logic/cubit/settings/appsettings_cubit.dart';
 import 'package:medimate/src/pesentation/about_page.dart';
 import 'package:medimate/src/pesentation/add_medi.dart';
+import 'package:medimate/src/pesentation/details_page.dart';
 import 'package:medimate/src/pesentation/homepage.dart';
+import 'package:medimate/src/pesentation/nearest_pharmacy%20.dart';
 import 'package:medimate/src/pesentation/settings_page.dart';
 import 'package:medimate/src/pesentation/splashpage.dart';
 import 'package:medimate/src/utils/const.dart';
+import 'package:medimate/src/widgets/camera.dart';
 import 'package:medimate/theme/mm_theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -40,9 +43,15 @@ class MyApp extends StatelessWidget {
                 page: () => _applyScaleFactor(const AddMedicineScreen(
                       extractedText: '',
                     ))),
-            // GetPage(
-            //      name: DetailsPage.routeName,
-            //     page: () => _applyScaleFactor(DetailsPage())),
+            GetPage(
+                name: DetailsPage.routeName,
+                page: () => _applyScaleFactor(DetailsPage(medicineId: 0))),
+            GetPage(
+                name: CameraScreen.routeName,
+                page: () => _applyScaleFactor(CameraScreen())),
+            GetPage(
+                name: NearestPharmacyPage.routeName,
+                page: () => _applyScaleFactor(const NearestPharmacyPage())),
           ],
         );
       },

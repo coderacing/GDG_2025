@@ -56,8 +56,12 @@ dependencies:
   google_vision:
   fuzzywuzzy:
   xml2json:
-  alarm:
-  flutter_local_notifications: ^19.0.0
+  alarm: ^3.1.0
+  flutter_local_notifications:
+  flutter_dotenv:
+  geolocator: ^13.0.4
+  permission_handler: ^11.0.0
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
@@ -91,6 +95,7 @@ flutter:
     - assets/images/
     - assets/images/medico_clock.png
     - assets/audio/alarm.mp3
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

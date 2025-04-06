@@ -1,10 +1,22 @@
-plugins {
-  // ...
+// plugins {
+//   // ...
 
-  // Add the dependency for the Google services Gradle plugin
-  id("com.google.gms.google-services") version "4.3.15" apply false
+//   // Add the dependency for the Google services Gradle plugin
+// //   id("com.google.gms.google-services") version "4.3.15" apply false
 
+// }
+buildscript {
+    ext.kotlin_version = '1.9.22' // ✅ Latest stable version
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:4.3.15" // already added via plugins
+    }
 }
+
 allprojects {
     repositories {
         google()
